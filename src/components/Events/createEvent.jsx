@@ -1,26 +1,14 @@
 /* eslint-disable */
 import React, { useState } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
-export default function CreateEventForm() {
-    const [formData, setFormData] = useState({
-        name: "",
-        hostName: "",
-        description: "",
-        startDate: "",
-        endDate: "",
-        tag: "",
-        mode: "",
-        slots: "",
-        posters: null,
-        address: "",
-        link: "",
-    });
-
+export default function CreateEventForm({ formData, setFormData }) {
     const handleChange = (e) => {
         const { id, value, type, files } = e.target;
         setFormData((prevData) => ({
             ...prevData,
-            [id]: type === "file" ? files[0] : value,
+            [id]: type === "file" ? files : value,
         }));
     };
 
@@ -34,9 +22,10 @@ export default function CreateEventForm() {
             <form onSubmit={handleSubmit} className="text-w_text">
                 <div className="flex flex-col items-start gap-1 mt-3">
                     <label htmlFor="name" className="text-w_text text-[16px]">
-                        Name :
+                        Title :
                     </label>
                     <input
+                        required
                         type="text"
                         id="name"
                         value={formData.name}
@@ -52,6 +41,7 @@ export default function CreateEventForm() {
                         Name Of Host :
                     </label>
                     <input
+                        required
                         type="text"
                         id="hostName"
                         value={formData.hostName}
@@ -67,6 +57,7 @@ export default function CreateEventForm() {
                         Description :
                     </label>
                     <textarea
+                        required
                         id="description"
                         value={formData.description}
                         onChange={handleChange}
@@ -77,32 +68,38 @@ export default function CreateEventForm() {
                 <div className="flex item-center justify-between gap-5 w-[100%]">
                     <div className="flex flex-col items-start gap-1 mt-3 w-[33%]">
                         <label
-                            htmlFor="start_date"
+                            htmlFor="startDate"
                             className="text-w_text text-[16px]"
                         >
-                            Start Date :{" "}
+                            Start Date:{" "}
                         </label>
-                        <input
-                            type="text"
-                            id="start_date"
-                            value={formData.startDate}
-                            onChange={handleChange}
+                        <DatePicker
+                            required
+                            selected={formData.startDate}
+                            onChange={(date) =>
+                                handleChange({
+                                    target: { id: "startDate", value: date },
+                                })
+                            }
                             className="p-1 rounded w-[100%] bg-main_black shadow-inputShadow"
                         />
                     </div>
 
                     <div className="flex flex-col items-start gap-1 mt-3 w-[33%]">
                         <label
-                            htmlFor="end_date"
+                            htmlFor="start_time"
                             className="text-w_text text-[16px] "
                         >
-                            End Date :{" "}
+                            Start Time :{" "}
                         </label>
-                        <input
-                            type="text"
-                            id="end_date"
-                            value={formData.endDate}
-                            onChange={handleChange}
+                        <DatePicker
+                            required
+                            selected={formData.startTime}
+                            onChange={(date) =>
+                                handleChange({
+                                    target: { id: "startTime", value: date },
+                                })
+                            }
                             className="p-1 rounded w-[100%] bg-main_black shadow-inputShadow"
                         />
                     </div>
@@ -116,6 +113,7 @@ export default function CreateEventForm() {
                             Tag :{" "}
                         </label>
                         <select
+                            required
                             id="tag"
                             value={formData.tag}
                             onChange={handleChange}
@@ -142,7 +140,6 @@ export default function CreateEventForm() {
                 </div>
 
                 <div className="flex item-center justify-between gap-5 w-[100%]">
-                    
                     <div className="flex flex-col items-start gap-1 mt-3 w-[33%]">
                         <label
                             htmlFor="mode"
@@ -152,6 +149,7 @@ export default function CreateEventForm() {
                             Event Channel :{" "}
                         </label>
                         <select
+                            required
                             id="mode"
                             value={formData.mode}
                             onChange={handleChange}
@@ -176,7 +174,6 @@ export default function CreateEventForm() {
                         </select>
                     </div>
 
-                  
                     <div className="flex flex-col items-start gap-1 mt-3 w-[33%]">
                         <label
                             htmlFor="slots"
@@ -185,6 +182,7 @@ export default function CreateEventForm() {
                             Available Slots :{" "}
                         </label>
                         <input
+                            required
                             type="text"
                             id="slots"
                             value={formData.slots}
@@ -202,14 +200,15 @@ export default function CreateEventForm() {
                             Event Posters :{" "}
                         </label>
                         <input
+                            required
+                            multiple
                             type="file"
                             id="posters"
                             onChange={handleChange}
-                            className="p-1 rounded w-[100%] text-w_text text-[12px] bg-main_black shadow-inputShadow file file:text-sm file:bg-main_black file:text-w_text file:hidden placeholder: text-transparent"
+                            className="p-1 rounded w-[100%] text-w_text text-[12px] bg-main_black shadow-inputShadow file file:text-sm file:bg-main_black file:text-w_text file:hidden "
                         />
                     </div>
                 </div>
-
 
                 <div className="flex flex-col items-start gap-1 mt-3">
                     <label
@@ -224,6 +223,7 @@ export default function CreateEventForm() {
                         value={formData.address}
                         onChange={handleChange}
                         className="p-1 rounded w-full bg-main_black shadow-inputShadow"
+                        required={formData.mode === "Offline"}
                     />
                 </div>
 
@@ -237,6 +237,7 @@ export default function CreateEventForm() {
                         value={formData.link}
                         onChange={handleChange}
                         className="p-1 rounded w-full bg-main_black shadow-inputShadow"
+                        required={formData.mode === "Online"}
                     />
                 </div>
 
