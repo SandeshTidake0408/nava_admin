@@ -1,6 +1,8 @@
 /* eslint-disable */
 import React, { useState } from "react";
-
+import { IEvent } from "src/types";
+import clients from "src/clients";
+import dayjs from 'dayjs';
 export default function CreateEventForm() {
     const [formData, setFormData] = useState({
         name: "",
@@ -16,7 +18,7 @@ export default function CreateEventForm() {
         link: "",
     });
 
-    const handleChange = (e) => {
+    const handleChange = (e: any) => {
         const { id, value, type, files } = e.target;
         setFormData((prevData) => ({
             ...prevData,
@@ -24,7 +26,29 @@ export default function CreateEventForm() {
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: any) => {
+		const event: IEvent = {
+            startAt: dayjs(dayjs().add(5, 'hour').toDate()), 
+            endAt: dayjs(dayjs().add(2, 'hour').toDate()),
+			description: formData.description,
+			location: {
+				lat: 12341,
+				long: 1234
+			},
+			numAttendees: 1234,
+			numSlots: Number(formData.slots),
+			onlineLink: formData.link,
+			title: formData.name,
+			type: 1,
+		};
+        clients.social.event.CreateEvent(event, {}, (err, response) => {
+            if (err) {
+                console.log('Before:-', err);
+            } else {
+                console.log(response);
+            }
+        });
+
         e.preventDefault();
         console.log("Form Data:", formData);
     };
