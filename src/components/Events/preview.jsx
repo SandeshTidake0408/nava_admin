@@ -11,15 +11,8 @@ import logo from "src/assets/logo.png";
 // import ImageCarousel_2 from "src/assets/ImageCarousel_2.png";
 
 function Preview({ formData }) {
-    const {
-        startDate,
-        hostName,
-        mode,
-        slots,
-        description,
-        startTime,
-        posters,
-    } = formData;
+    const { startDate, hostName, mode, slots, description, posters, endDate } =
+        formData;
 
     return (
         <>
@@ -39,8 +32,8 @@ function Preview({ formData }) {
                     ))}
                 </div>
                 <div className="w-[394px] h-[60px] bg-[#99F5B3] flex px-6 justify-between items-center">
-                    <p>{startDate.toLocaleDateString()}</p>
-                    <p>{startTime.toLocaleDateString()}</p>
+                    <p>{startDate}</p>
+                    <p>{endDate}</p>
                 </div>
                 <div className="bg-white font-normal  text-sm p-3 m-4 rounded-xl">
                     <div className="flex gap-2 ">

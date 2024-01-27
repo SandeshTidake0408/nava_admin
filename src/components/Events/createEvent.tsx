@@ -1,18 +1,50 @@
 /* eslint-disable */
 import React, { useState } from "react";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 
-export default function CreateEventForm({ formData, setFormData }) {
-    const handleChange = (e) => {
+import "react-datepicker/dist/react-datepicker.css";
+import clients from "src/clients";
+import dayjs from "dayjs";
+import { IEvent } from "src/types";
+
+
+
+
+
+
+
+export default function CreateEventForm({ formData, setFormData }: any) {
+
+    const handleChange = (e: { target: any; }) => {
         const { id, value, type, files } = e.target;
-        setFormData((prevData) => ({
+        setFormData((prevData: any) => ({
             ...prevData,
             [id]: type === "file" ? files : value,
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: any) => {
+        // const event: IEvent = {
+        //     startAt: dayjs(dayjs().add(5, "hour").toDate()),
+        //     endAt: dayjs(dayjs().add(2, "hour").toDate()),
+        //     description: formData.description,
+        //     location: {
+        //         lat: 12341,
+        //         long: 1234,
+        //     },
+        //     numAttendees: 1234,
+        //     numSlots: Number(formData.slots),
+        //     onlineLink: formData.link,
+        //     title: formData.name,
+        //     type: 1,
+        // };
+        // clients.social.event.CreateEvent(event, {}, (err, response) => {
+        //     if (err) {
+        //         console.log("Before:-", err);
+        //     } else {
+        //         console.log(response);
+        //     }
+        // });
+
         e.preventDefault();
         console.log("Form Data:", formData);
     };
@@ -73,35 +105,34 @@ export default function CreateEventForm({ formData, setFormData }) {
                         >
                             Start Date:{" "}
                         </label>
-                        <DatePicker
-                            required
-                            selected={formData.startDate}
-                            onChange={(date) =>
-                                handleChange({
-                                    target: { id: "startDate", value: date },
-                                })
-                            }
+                        <input
+                            type="datetime-local"
+                            id="startDate"
+                            value={formData.startDate}
+                            onChange={handleChange}
                             className="p-1 rounded w-[100%] bg-main_black shadow-inputShadow"
+                            required
                         />
+
                     </div>
 
                     <div className="flex flex-col items-start gap-1 mt-3 w-[33%]">
                         <label
-                            htmlFor="start_time"
+                            htmlFor="endDate"
                             className="text-w_text text-[16px] "
                         >
-                            Start Time :{" "}
+                            End Date :{" "}
                         </label>
-                        <DatePicker
-                            required
-                            selected={formData.startTime}
-                            onChange={(date) =>
-                                handleChange({
-                                    target: { id: "startTime", value: date },
-                                })
-                            }
+
+                        <input
+                            type="datetime-local"
+                            id="endDate"
+                            value={formData.endDate}
+                            onChange={handleChange}
                             className="p-1 rounded w-[100%] bg-main_black shadow-inputShadow"
+                            required
                         />
+
                     </div>
 
                     <div className="flex flex-col items-start gap-1 mt-3 w-[33%]">
@@ -113,6 +144,7 @@ export default function CreateEventForm({ formData, setFormData }) {
                             Tag :{" "}
                         </label>
                         <select
+
                             required
                             id="tag"
                             value={formData.tag}

@@ -8,27 +8,47 @@ import Preview from 'src/components/Events/preview';
 import CreateEventForm from 'src/components/Events/createEvent';
 import { useState } from 'react';
 
+export interface ILocation {
+	lat: number;
+	long: number;
+}
+
+export interface IEventData {
+	name: string;
+	hostName: string;
+	description: string;
+	startDate: string;
+	endDate: string;
+	tag: string;
+	mode: string;
+	slots: number;
+	posters: FileList;
+	address: ILocation;
+	link: string;
+}
+
+
 const Events = () => {
 
-	const [formData, setFormData] = useState({
+	const [formData, setFormData] = useState<IEventData>({
 		name: "",
 		hostName: "",
 		description: "",
-		startDate: new Date(),
-		startTime: new Date(),
+		startDate: "2018-06-12T19:30",
+		endDate: "",
 		tag: "",
 		mode: "",
-		slots: "",
-		posters: [],
-		address: "",
+		slots: 0,
+		posters: [] as unknown as FileList,
+		address: {
+			lat: 0,
+			long: 0,
+		}
+		,
 		link: "",
 
-		
-
-
-
-
 	});
+
 
 	return <>
 		<div className="mt-14">
@@ -48,3 +68,7 @@ const Events = () => {
 };
 
 export default Events;
+function dayjs(arg0: any) {
+	throw new Error('Function not implemented.');
+}
+

@@ -34,5 +34,5 @@
   "include": [
     "**/*.ts",
     "**/*.tsx"
-  ]
+, "src/components/Events/createEvent.jsx"  ]
 }

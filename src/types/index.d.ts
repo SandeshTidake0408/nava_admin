@@ -2,9 +2,9 @@
 // This software may be modified and distributed under the terms
 // of the Apache-2.0 license. See the LICENSE file for details.
 
-import dayjs from 'dayjs';
-import { FarmingType, Gender, LandSizeInAcres } from 'src/generated/common_pb';
-import { EventType } from 'src/generated/events_pb';
+import dayjs from "dayjs";
+import { FarmingType, Gender, LandSizeInAcres } from "src/generated/common_pb";
+import { EventType } from "src/generated/events_pb";
 
 export interface IUserProfile {
     attributesList?: string[];
@@ -63,7 +63,7 @@ export interface IProfileMaster {
 export interface ILabel {
     key: string;
     value: string;
-    language: string
+    language: string;
 }
 
 export interface IEvent {
@@ -126,7 +126,7 @@ export interface EventProto {
 }
 
 export interface IUserPost {
-    postId: string,
+    postId: string;
     post: string;
     mediaUrls: MediaUrl[];
     userId: string;
@@ -137,7 +137,7 @@ export interface IUserPost {
 }
 
 export interface IGetFeedRequest {
-    filters: FeedFilters
+    filters: FeedFilters;
 }
 
 export interface FeedFilters {
