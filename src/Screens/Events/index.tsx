@@ -28,6 +28,7 @@ export interface IEventData {
 }
 
 
+
 const Events = () => {
 
 	const [formData, setFormData] = useState<IEventData>({
@@ -56,7 +57,10 @@ const Events = () => {
 			{/* <div></div> // for event navigation (create, active,history) */}
 			<div className="flex flex-wrap">
 				<div className="w-[50%] "> {/*create form section*/}
-					<CreateEventForm formData={formData} setFormData={setFormData} />
+					<CreateEventForm
+						formData={formData}
+						setFormData={setFormData}
+					/>
 				</div>
 				<div className="w-[50%] p-5 relative flex flex-col items-center justify-center font-barlow ">{/*preview section*/}
 					<Preview formData={formData} />

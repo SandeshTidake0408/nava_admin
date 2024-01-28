@@ -5,14 +5,11 @@ import "react-datepicker/dist/react-datepicker.css";
 import clients from "src/clients";
 import dayjs from "dayjs";
 import { IEvent } from "src/types";
-
-
-
-
-
+import HandleImageUpload from "src/components/Events/mediaUpload";
 
 
 export default function CreateEventForm({ formData, setFormData }: any) {
+    const [uploadedImageLinks, setUploadedImageLinks] = useState<string[]>([]);
 
     const handleChange = (e: { target: any; }) => {
         const { id, value, type, files } = e.target;
@@ -21,6 +18,12 @@ export default function CreateEventForm({ formData, setFormData }: any) {
             [id]: type === "file" ? files : value,
         }));
     };
+
+    const onUpload = (e: any) => {
+        handleChange(e);
+        HandleImageUpload(formData.posters, setUploadedImageLinks);
+    }
+
 
     const handleSubmit = (e: any) => {
         // const event: IEvent = {
@@ -236,7 +239,7 @@ export default function CreateEventForm({ formData, setFormData }: any) {
                             multiple
                             type="file"
                             id="posters"
-                            onChange={handleChange}
+                            onChange={onUpload}
                             className="p-1 rounded w-[100%] text-w_text text-[12px] bg-main_black shadow-inputShadow file file:text-sm file:bg-main_black file:text-w_text file:hidden "
                         />
                     </div>
